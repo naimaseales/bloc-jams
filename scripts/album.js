@@ -30,6 +30,22 @@ var albumMarconi = {
     ]
 };
 
+// My Example Album
+var albumGonzo = {
+    title: 'Fear and Loathing',
+    artist: 'Hunter S. Thompson',
+    label: 'Journalist',
+    year: 1937,
+    albumArtUrl: 'assets/images/album_covers/04.png',
+    songs: [
+        { title: 'Fear and Loathing in America', duration: '5:58' },
+        { title: 'Gonzo Papers, Vol. 2: Generation of Swine: Tales of Shame and Degradation', duration: '19:88' },
+        { title: 'Fear and Loathing in Las Vegas', duration: '1:01' },
+        { title: 'Where the Buffalo Roam', duration: '3:11' },
+        { title: 'Kingdom of Fear', duration: '6:31' }
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
         '<tr class="album-view-song-item">'
@@ -42,13 +58,13 @@ var createSongRow = function(songNumber, songName, songLength) {
     return template;
 };
 
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 var setCurrentAlbum = function(album) {
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
-    
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -63,4 +79,13 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    var albums = [albumPicasso, albumMarconi, albumGonzo];
+    var i = 0;
+    albumImage.addEventListener("click", function(e) {
+        setCurrentAlbum(albums[i]);
+        i++;
+        if (i == albums.length) {
+            i = 0;
+        };
+    });
 };
